@@ -9,10 +9,10 @@ for(page_no in seq(from = 1, to = 3 , by =1))
   page = read_html(link)
   prices = page %>% html_nodes(".a-price-whole") %>% html_text()
   names = page %>% html_nodes(".a-color-base.a-text-normal") %>% html_text()
-  prices=as.numeric(prices)
+  prices=as.numeric(sub(",","",prices))
   m = rbind(m, data.frame(names,prices, stringsAsFactors = FALSE))
 }
-write.csv(m)
+write.csv(m,"Laptops.csv")
 m[is.na(m)]=0
 boxplot(m["prices"],varwidth = TRUE, las = 2,ylab="Price",col="red")
 title("HP core i7 prices in $ USD")
